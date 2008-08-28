@@ -1,0 +1,154 @@
+@charset "utf-8";
+@import "http://www.stokeshot.com/css/nukamiso.css";
+
+html
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+  background: #ddffcc;
+  font-size: 1.1em;
+}
+
+img
+{
+  border: none;
+}
+
+p {
+  text-align: left;
+}
+
+h1 {
+  color: #555;
+  font-size: 150%;
+  margin: 8px;
+}
+
+h2 {
+  color: #555555;
+  font-size: 110%;
+}
+
+a { color: #393; text-decoration: underline; }
+a:visited { color: #666; }
+a:hover { color: #f93; }
+
+ul.inline
+{
+  margin: 0;
+  padding: 0;
+}
+
+ul.inline li
+{
+  list-style: none;
+  display: inline;
+
+}
+
+#main_index {
+  margin:0% 3%;
+  background: #ffffff;
+}
+
+#head {
+  text-align:center;
+  padding: 10px 20px;
+}
+
+#container {
+  overflow: hidden;
+  background: #ffffff;
+  margin: 0 20px;
+}
+
+#container:after {
+    content: "";
+    display: block;
+    clear: both;
+    height: 1px;
+    overflow: hidden;
+}
+
+/*\*/
+* html #container {
+    height: 1em;
+    overflow: visible;
+}
+/**/
+
+div#container div.float
+{
+  float: left;
+  margin: 6px 2px;
+  text-align :center;
+  font-size: 70%;                          
+}
+
+div#container div.float
+{
+  width: 140px;
+}
+
+div.footer
+{
+  clear: both;
+  font-size: 90%;
+  text-align: center;
+  color: #888888;
+  padding: 20px 0;
+  margin: 20px 0;
+  width: 100%;
+  border-top: 1px solid #bbbbbb;
+}
+
+div.explain
+{
+  padding: 10px 50px;
+  line-height: 150%;
+}
+
+div.explain
+{
+  font-size: 95%;
+}
+
+div.content
+{
+  font-size: 100%;
+}
+
+div#tab-order div#main
+{
+  width: 650px;
+  float: left;
+}
+
+div#tab-order div#sidebar
+{
+  width: 200px;
+  float: right;
+  border: 1px solid #cccccc;
+}
+
+ul.ui-tabs-nav li span
+{
+  font-size: 16px;
+  line-height: 150%;
+}
+
+#preview a
+{
+  border: none;
+  text-decoration: none;
+}
+
+#ordering li
+{
+  list-style: none;
+}
+

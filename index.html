@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="emacs" />
+<meta name="keywords" content="Flickr ブログ html ツール jQuery" />
+<meta name="description" content="Flickrにアップロードした写真を、ブログなどで利用するためのツールです。自分のFlickrのユーザIDを入力すると、最新の写真から選択して、HTMLを出力します。並び替えやサムネイル表示なども可能。" />
+<link rev="made" title="作成者" href="mailto:kaneko@gmail.com" />
+<link rel="contents"  title="目次" href="http://www.goodpic.com/" />
+
+<link rel="stylesheet" href="./showhtml.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="http://www.stokeshot.com/javascript/jquery.js"></script>
+<script type="text/javascript" src="http://www.stokeshot.com/javascript/plugins/lightbox/js/jquery.lightbox-0.3.1.js"></script>
+<link rel="stylesheet" type="text/css" href="http://www.stokeshot.com/javascript/plugins/lightbox/css/jquery.lightbox-0.3.css" media="screen" />
+
+
+<link rel="stylesheet" href="http://www.stokeshot.com/javascript/themes/light/light.all.css" type="text/css" media="screen" title="Light">
+<script type="text/javascript" src="http://www.stokeshot.com/javascript/ui/ui.tabs.js"></script>
+
+<script  src="http://www.stokeshot.com/javascript/plugins/jquery.dimensions.js"></script>
+<script src="http://www.stokeshot.com/javascript/ui/ui.mouse.js"></script>
+<script src="http://www.stokeshot.com/javascript/ui/ui.draggable.js"></script>
+<script src="http://www.stokeshot.com/javascript/ui/ui.droppable.js"></script>
+<script src="http://www.stokeshot.com/javascript/ui/ui.sortable.js"></script>
+
+<script type="text/javascript" src="./showhtml-data.js" ></script>
+<script type="text/javascript" src="./my.flickr.js" ></script>
+<link rel="stylesheet" type="text/css" href="./my.flickr.css" media="screen" />
+
+<script type="text/javascript">
+  
+$(document).ready( function(){
+
+  // Select all links that contains lightbox in the attribute rel
+  $('a[@rel*=lightbox]').lightBox();
+  // jquery UI でタブ表示
+
+  $("#jqueryui > ul").tabs();
+
+  $("#menu_size input").click( function (){
+		$.stokeshot.showImages("#tab-order div#preview");
+	  $.stokeshot.refreshTextarea();
+  });
+  $("#menu_br").click( function (){
+    $.stokeshot.addBr(); 
+  });
+
+
+  $("#flickr_load").click( function () {
+
+    $.flickr.s.user_id = $("#flickr_id").attr("value");
+    $.flickr.request();  
+
+  });
+});
+
+</script>
+
+<title>Flickr to HTML : 画像を選んで&lt;img&gt;タグに</title>
+</head>
+
+<body>
+<div id="main_index">
+  <div id="head">
+    <h1><img src="./images/logo.png" width="276" height="77" /></h1>
+
+    <div class="section explain">
+    <p>Flickrにアップロードした写真を、ブログなどで利用するためのツールです。自分のFlickrのユーザIDを入力すると、最新の写真から選択して、HTMLを出力します。並び替えやサムネイル表示なども可能です。<a href="http://b.hatena.ne.jp/entry/http://www.stokeshot.com/flickr/" title="Flickr to HTMLのブックマーク" rel="nofollow"><img src="http://b.hatena.ne.jp/entry/image/normal/http://www.stokeshot.com/flickr/" alt="はてなブックマーク" /></a></p>
+    
+    </div>
+  </div> <!-- head -->
+  
+  <div id="container">
+    
+    <div id="jqueryui" class="">
+      <ul>
+        <li><a href="#tab-import"><span>Flickrの画像選択</span></a></li>
+        <li><a href="#tab-order"><span>プレビュー＆並び替え</span></a></li>
+        <li><a href="#tab-html"><span>HTMLを表示</span></a></li>
+      </ul>
+    </div> <!-- jqueryui  -->
+
+    <div id="tab-import" class="content">
+
+      <div class="section explain">
+        <p>FlickrのユーザIDを入力して『画像を読み込み』ボタンをクリック。<strong>IDが分からない場合は、<a href="http://idgettr.com/">idGettr</a>で調べることができます</strong>。画像が表示されたら、利用したい画像のチェックボックスを選択。『写真』をチェックすると、並び替えのできる写真リストに追加し、『icon』をチェックすると、並び替えのできないサムネイルリストに追加します。選択が終ったら、『プレビュー＆並び替え』タブをクリック。
+</p>
+      </div>
+
+      <form id="flickr_form" action="" method="post" >
+       ユーザID（例 31856513@N00 ）  <input id="flickr_id" type="text" value="" />
+        <input id="flickr_load" type="button" value="画像読み込み" />
+      </form>
+      
+      <div id="flickr"></div>
+    </div>
+    
+    <div id="tab-order" class="content">
+      <div id="main">
+
+        <p>右側の『並び替えメニュー』で写真を並び替え。表示する画像のサイズを以下で選択。並び替えが終了したら、『HTMLを表示』タブをクリックしてください。Flickrの画像選択に戻って、写真を追加・削除することもできます。</p>
+
+        <form id="menu_size">
+          <ul class="inline">
+            <li>表示写真サイズ　：　</li>
+            <li><input type="radio" id="menu_size_l" name="menu_input" /> 大（500x333）</li>
+            <li><input type="radio" id="menu_size_s" name="menu_input" checked="checked" /> 小（240x160）</li>
+          </ul>
+        </form>
+        <h2>プレビュー</h2>
+        <div id="preview"></div>
+        <div id="preview-icon"></div>
+      </div>
+
+      <div id="sidebar">
+        <h2>並び替えメニュー</h2>
+        <p>写真をドラッグ＆ドロップで並び替え<br />
+          <input type="button" id="menu_br" value="改行追加" />
+        </p>
+        <ul id="ordering">
+        </ul>
+      </div>
+      <br style="clear:both;" />
+      
+    </div>
+
+    <div id="tab-html" class="content">
+      <h3>画像のHTML</h3>
+      <div id="htmlsource">
+        <textarea cols="100" rows="16" id="target"></textarea>
+        
+      </div>
+
+      <script type="text/javascript"><!--
+google_ad_client = "pub-1178104476548539";
+/* Stokeshot Flickr : 728x90, 08/03/03 */
+google_ad_slot = "3101091982";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+    </div>
+
+  <div class="footer">by <a href="http://www.goodpic.com/">goodpic.com</a> , 2008</div>
+  </div> <!-- container  -->
+
+</div> <!-- main_index  -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-51462-4");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>
