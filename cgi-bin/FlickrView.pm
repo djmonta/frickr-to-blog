@@ -43,9 +43,7 @@ sub showhome {
 sub showlist {
     my $self = shift;
     my $q = $self->query();
-    
-    
-    return $output;
+
 }
   
 sub showdetail {
